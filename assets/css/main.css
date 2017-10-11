@@ -8,8 +8,26 @@ body {
 nav {
   margin-bottom: 3.0rem; }
 
+#currentLocationBtn {
+  display: inline-block;
+  width: 100%;
+  color: white; }
+
 .nav__search {
+  display: inline-block;
   width: 70%; }
+
+.nav__search-btn {
+  display: inline-block;
+  width: 29%; }
+
+.toggle-handle {
+  background-color: white; }
+
+.toggle.btn {
+  display: inline-block;
+  height: 1.25rem;
+  min-width: 120px; }
 
 .card {
   margin: 2.5vh 2.5%; }

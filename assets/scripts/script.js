@@ -1,16 +1,45 @@
 var googleAPIKey = "AIzaSyA0I2xX1mnirAlMaS8M-49tEHF-hbDxEcQ";
 var weatherUndegroundAPIKey = "19d816e94a0f10ea"
 
+var isFahrenheit = true;
+var degreeSystem = "F";
+
 function getAddress() {
     return $(".nav__search").val();
 }
 
-function toCelsius(num) {
+function toFarenheit(num) {
     return num * 9 / 5 + 32;
 }
 
-function toFarenheit(num) {
+function toCelsius(num) {
     return (num - 32) * 5 / 9;
+}
+
+function toggleTemperature() {
+    for (var i = 0; i <= 4; i++) {
+        var index = i;
+        var high = Number($(`#day${index}-high`).text().match(/[-]?[0-9]+/g)[0]);
+        var low = Number($(`#day${index}-low`).text().match(/[-]?[0-9]+/g)[0]);
+
+        high = Math.round(isFahrenheit ? toCelsius(high) : toFarenheit(high));
+        low = Math.round(isFahrenheit ? toCelsius(low) : toFarenheit(low));
+        degreeSystem = isFahrenheit ? "C" : "F";
+
+        $(`#day${index}-high`).text(high + "\u00b0" + degreeSystem);
+        $(`#day${index}-low`).text(low + "\u00b0" + degreeSystem);
+    }
+
+    isFahrenheit = !isFahrenheit;
+}
+
+function requestAndUpdate() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        updateWeather(lat, lng);
+    })
 }
 
 function updateWeather(lat, lng) {
@@ -34,9 +63,11 @@ function updateWeather(lat, lng) {
             $(`#day${index}-low`).text(lowF + "\u00b0F");
             $(`#day${index}-date`).text(date);
         });
-
-            // (use a foreach loop to go through the array and modify each of the elements of the card)
     })
+
+    $("#toggleTemperature").bootstrapToggle("enable");
+    $("#toggleTemperature").bootstrapToggle("on")
+
 }
 
 function searchAndUpdateWeather() {
@@ -70,3 +101,10 @@ $(".nav__search").keypress(function(e) {
     if(e.which == 13) {searchAndUpdateWeather()}
 });
 $(".card").hover(function() {$(this).toggleClass("opacity")});
+
+
+$("document").ready(function() {
+    $(".toggle").on("click", toggleTemperature);
+    $("#toggleTemperature").bootstrapToggle("disable");
+});
+$("#currentLocationBtn").on("click", requestAndUpdate);
