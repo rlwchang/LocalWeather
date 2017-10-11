@@ -16,11 +16,24 @@ function toFarenheit(num) {
 function updateWeather(lat, lng) {
     $.getJSON(`http://api.wunderground.com/api/${weatherUndegroundAPIKey}/conditions/forecast10day/q/${lat},${lng}.json`, function(json) {
         var cityName = json.current_observation.display_location.full;
-        var daysArr = json.simpleforecast.forecastday;
-        var day1 = daysArr[0],
-            day2 = daysArr[1],
-            day3 = daysArr[2],
-            day4 = daysArr[3];
+        $(`#city-name`).text(cityName);
+
+        var daysArr = json.forecast.simpleforecast.forecastday;
+
+        daysArr.forEach((day, index) => {
+            var weekday = day.date.weekday_short,
+                iconURL = day.icon_url,
+                condition = day.conditions,
+                highF = day.high.fahrenheit,
+                lowF = day.low.fahrenheit,
+                date = day.date.month + "/" + day.date.day;
+            $(`#day${index}-day`).text(weekday);
+            $(`#day${index}-icon`).attr("src", iconURL);
+            $(`#day${index}-condition`).text(condition);
+            $(`#day${index}-high`).text(highF + "\u00b0F");
+            $(`#day${index}-low`).text(lowF + "\u00b0F");
+            $(`#day${index}-date`).text(date);
+        });
 
             // (use a foreach loop to go through the array and modify each of the elements of the card)
     })
@@ -56,3 +69,4 @@ $(".nav__search-btn").on("click", searchAndUpdateWeather);
 $(".nav__search").keypress(function(e) {
     if(e.which == 13) {searchAndUpdateWeather()}
 });
+$(".card").hover(function() {$(this).toggleClass("opacity")});

@@ -1,5 +1,5 @@
 $main-theme-color: #343a40;
-
+$grid-gutter-width: 30px !default;
 // WRAPPERS & CONTAINERS
 .wrapper {
     max-width: 500px;
@@ -21,6 +21,22 @@ nav {
 }
 
 
+// MAIN CONTENT
+.card {
+    margin: 2.5vh 2.5%;
+}
+
+.main-results {
+    font-size: 150%;
+    color: white;
+    text-shadow: 0.1rem 0.1rem 0 gray;
+}
+
+.icon {
+    width: 5rem;
+    height: 5rem;
+}
+
 // MODIFIERS
 .opacity {
     opacity: 0.7;
@@ -28,4 +44,8 @@ nav {
 
 .center {
     text-align: center;
+}
+
+.font-larger {
+    font-size: 300%;
 }
