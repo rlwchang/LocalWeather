@@ -43,7 +43,7 @@ function requestAndUpdate() {
 }
 
 function updateWeather(lat, lng) {
-    $.getJSON(`http://api.wunderground.com/api/${weatherUndegroundAPIKey}/conditions/forecast10day/q/${lat},${lng}.json`, function(json) {
+    $.getJSON(`https://api.wunderground.com/api/${weatherUndegroundAPIKey}/conditions/forecast10day/q/${lat},${lng}.json`, function(json) {
         var cityName = json.current_observation.display_location.full;
         $(`#city-name`).text(cityName);
 
