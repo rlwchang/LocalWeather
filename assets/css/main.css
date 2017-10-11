@@ -1,5 +1,18 @@
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto; }
+
 body {
   background-color: black; }
 
+nav {
+  margin-bottom: 3.0rem; }
+
 .nav__search {
   width: 70%; }
+
+.opacity {
+  opacity: 0.7; }
+
+.center {
+  text-align: center; }

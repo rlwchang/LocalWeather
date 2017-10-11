@@ -1,9 +1,31 @@
 $main-theme-color: #343a40;
 
+// WRAPPERS & CONTAINERS
+.wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+// GLOBAL STYLES
 body {
     background-color: black;
 }
 
+// NAVBAR
+nav {
+    margin-bottom: 3.0rem;
+}
+
 .nav__search {
     width: 70%
+}
+
+
+// MODIFIERS
+.opacity {
+    opacity: 0.7;
+}
+
+.center {
+    text-align: center;
 }

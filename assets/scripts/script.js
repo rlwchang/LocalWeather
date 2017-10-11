@@ -1,5 +1,5 @@
 var googleAPIKey = "AIzaSyA0I2xX1mnirAlMaS8M-49tEHF-hbDxEcQ";
-var openweatherAPIKey = "7fc03f537002416f0d00fc3c16a783b3"
+var weatherUndegroundAPIKey = "19d816e94a0f10ea"
 
 function getAddress() {
     return $(".nav__search").val();
@@ -13,6 +13,19 @@ function toFarenheit(num) {
     return (num - 32) * 5 / 9;
 }
 
+function updateWeather(lat, lng) {
+    $.getJSON(`http://api.wunderground.com/api/${weatherUndegroundAPIKey}/conditions/forecast10day/q/${lat},${lng}.json`, function(json) {
+        var cityName = json.current_observation.display_location.full;
+        var daysArr = json.simpleforecast.forecastday;
+        var day1 = daysArr[0],
+            day2 = daysArr[1],
+            day3 = daysArr[2],
+            day4 = daysArr[3];
+
+            // (use a foreach loop to go through the array and modify each of the elements of the card)
+    })
+}
+
 function searchAndUpdateWeather() {
     var address = getAddress();
 
@@ -24,22 +37,16 @@ function searchAndUpdateWeather() {
             console.log("Invalid Address") //Modify later
         }
 
-        // $.getJSON(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lng}&cnt=5&appid=${openweatherAPIKey}`, function(json) {
-        //     var day1 = json.list[0],
-        //         day2 = json.list[1],
-        //         day3 = json.list[2],
-        //         day4 = json.list[3],
-        //         day5 = json.list[4];
+        updateWeather(lat, lng);
+
+        // $.getJSON(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lng}`, function(json) {
+        //     var minTemp = json.main.temp_min,
+        //         maxTemp = json.main.temp_max,
+        //         type = json.weather.main,
+        //         iconURL = json.weather.icon;
+        //
+        //     console.log(minTemp);
         // });
-
-        $.getJSON(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lng}`, function(json) {
-            var minTemp = json.main.temp_min,
-                maxTemp = json.main.temp_max,
-                type = json.weather.main,
-                iconURL = json.weather.icon;
-
-            console.log(minTemp);
-        });
         // console.log(json);
         // console.log(json.results[0]);
     });
